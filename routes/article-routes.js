@@ -2,24 +2,26 @@ const express = require("express");
 const {
   getAllArticles,
   createNewArticle,
-  articleById
+  articleById,
+  editArticle,
+  deleteArticle
 } = require("../controllers/article-controller");
 
 const router = express.Router();
 
-// Get all articles
+// Route to get all articles
 router.get("/articles", getAllArticles);
 
-// Create new article
+// Route to create a new article
 router.post("/new", createNewArticle);
 
-// Get article by ID
-router.get("/read/:articleId", articleById);
+// Route to get a specific by article by ID
+router.get("/read/:id", articleById);
 
-// Edit article by ID
-router.put("/edit/articleId");
+// Route to edit a specific article by ID
+router.put("/edit/:id", editArticle);
 
-// Delete article by ID
-router.delete("/delete/articleId");
+// Route to delete a specific article by ID
+router.delete("/delete/:id", deleteArticle);
 
 module.exports = router;

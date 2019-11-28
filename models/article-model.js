@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema;
 
 const articleSchema = new mongoose.Schema({
-  articleId: {
-    type: ObjectId
-  },
   title: {
     type: String,
     required: true

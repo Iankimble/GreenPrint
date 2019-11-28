@@ -1,8 +1,21 @@
 const Article = require("../models/article-model");
-const fs = require("fs");
-const_ = require("lodash");
+const _ = require("lodash");
 
-exports.getAllArticles = (req, res, next) => {
+// Logic for creating a new article
+exports.createNewArticle = (req, res) => {
+  let newArticle = new Article(req.body);
+  newArticle.save(err => {
+    if (err) {
+      return res.status(400).json({
+        msg: "something went wrong..."
+      });
+    }
+    res.json({ message: "test article has been added!" });
+  });
+};
+
+// Logic for getting all articles
+exports.getAllArticles = (req, res) => {
   Article.find((err, articles) => {
     if (err) {
       res.status(400).json({
@@ -13,27 +26,43 @@ exports.getAllArticles = (req, res, next) => {
   });
 };
 
-exports.createNewArticle = (req, res) => {
-  let newArticle = new Article(req.body);
-  newArticle.save(err => {
+// Logic for getting an article by ID
+exports.articleById = (req, res) => {
+  let id = req.params.id;
+  Article.findById(id, (err, data) => {
     if (err) {
       return res.status(400).json({
-        message: "something went wrong..."
+        msg: `Can't find article`
       });
     }
-    res.json({ message: "test article has been added!" });
+    res.json(data);
   });
 };
 
-exports.articleById = (req, res, next, id) => {
-  Article.findById(id).exec((err, article) => {
-    if (err) {
-      return res.json({ message: "nah..." });
+// Logic to edit a article
+exports.editArticle = (req, res) => {
+  Article.findById(req.params.id, (err, newData) => {
+    if (err || !newData) {
+      res.status(400).json({ msg: "nope" });
     }
-    res.json(article);
+    newData.title = req.body.title;
+    newData.subTitle = req.body.subTitle;
+    newData.body = req.body.body;
+
+    newData.save().then(newData => {
+      res.json(newData);
+    });
   });
 };
 
-exports.editArticle = (req, res, next) => {};
-
-exports.deleteArticle = (req, res, next) => {};
+// Logice to delete an article
+exports.deleteArticle = (req, res) => {
+  let id = req.params.id;
+  Article.findById(id, (err, data) => {
+    if (err || !data) {
+      return res.status(400).json({ msg: "nope" });
+    }
+    data.remove();
+    res.json({ msg: "done" });
+  });
+};
