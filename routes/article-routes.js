@@ -1,7 +1,8 @@
 const express = require("express");
 const {
   getAllArticles,
-  createNewArticle
+  createNewArticle,
+  articleById
 } = require("../controllers/article-controller");
 
 const router = express.Router();
@@ -13,7 +14,7 @@ router.get("/articles", getAllArticles);
 router.post("/new", createNewArticle);
 
 // Get article by ID
-router.get("/read/:articleId");
+router.get("/read/:articleId", articleById);
 
 // Edit article by ID
 router.put("/edit/articleId");

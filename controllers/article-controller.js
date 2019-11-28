@@ -1,4 +1,6 @@
 const Article = require("../models/article-model");
+const fs = require("fs");
+const_ = require("lodash");
 
 exports.getAllArticles = (req, res, next) => {
   Article.find((err, articles) => {
@@ -23,7 +25,14 @@ exports.createNewArticle = (req, res) => {
   });
 };
 
-exports.articleById = (req, res, next, id) => {};
+exports.articleById = (req, res, next, id) => {
+  Article.findById(id).exec((err, article) => {
+    if (err) {
+      return res.json({ message: "nah..." });
+    }
+    res.json(article);
+  });
+};
 
 exports.editArticle = (req, res, next) => {};
 
