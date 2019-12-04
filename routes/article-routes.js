@@ -13,15 +13,15 @@ const router = express.Router();
 router.get("/articles", getAllArticles);
 
 // Route to create a new article
-router.post("/new", createNewArticle);
+router.post("/new/article", createNewArticle);
 
 // Route to get a specific by article by ID
-router.get("/read/:id", articleById);
+router.get("/read/article/:id", articleById);
 
 // Route to edit a specific article by ID
-router.put("/edit/:id", editArticle);
+router.put("/edit/article/:id", editArticle);
 
 // Route to delete a specific article by ID
-router.delete("/delete/:id", deleteArticle);
+router.delete("/delete/article/:id", deleteArticle);
 
 module.exports = router;

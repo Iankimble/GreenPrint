@@ -12,19 +12,22 @@ const articleSchema = new mongoose.Schema({
   body: {
     type: String,
     required: true
+  },
+  tags: {
+    type: Array
+  },
+  createdOn: {
+    type: Date,
+    default: Date.now
   }
-  //   image: {
-  //     type: Buffer,
-  //     contentType: String
-  //   },
-  //   createdOn: {
-  //     type: Date,
-  //     default: Date.now
-  //   },
-  //   writtenBy: {
-  //     type: String,
-  //     required: true
-  //   }
+  // writtneBy: {
+  //   type: String,
+  //   required: true
+  // },
+  // image: {
+  //   type: Buffer,
+  //   contentType: String
+  // }
 });
 
 module.exports = mongoose.model("Article", articleSchema);

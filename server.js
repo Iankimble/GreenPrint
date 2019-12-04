@@ -15,7 +15,8 @@ const app = express();
 //Routes
 const articleRoutes = require("./routes/article-routes");
 const eventRoutes = require("./routes/event-routes");
-const quizRoutes = require("./routes/quiz-routes");
+
+// const quizRoutes = require("./routes/quiz-routes");
 
 // Middleware/ Checkware
 app.use(morgan("dev"));
@@ -24,7 +25,7 @@ app.use(bodyParser.json());
 // app.use(expressValidator());
 app.use(cors());
 app.use("/", articleRoutes);
-// app.use("/", eventRoutes);
+app.use("/", eventRoutes);
 // app.use("/", quizRoutes);
 
 // MongoDB
